@@ -74,7 +74,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                               ),
                             ),
                             Icon(
-                              FontAwesomeIcons.trash,
+                              Icons.shopping_cart,
                               size: 50,
                               color: Colors.white,
                             ),
