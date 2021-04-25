@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:shapiping/modules/services/firebase_service.dart';
 
 class Home extends StatelessWidget {
-  static const String id = '/';
+  static const String id = '/home';
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +12,7 @@ class Home extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context).pushNamed('aa');
+          AuthService().signOut();
         },
       ),
     );
