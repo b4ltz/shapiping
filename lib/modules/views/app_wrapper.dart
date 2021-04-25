@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shapiping/config/routes/routes.dart';
@@ -8,17 +9,25 @@ class AppWrapper extends StatelessWidget {
   static const String id = '/';
   @override
   Widget build(BuildContext context) {
-    return Consumer(
-      builder: (context, watch, child) {
-        return watch(authProvider).when(
-          data: (user) {
-            if (user == null)
-              return Login();
-            else
-              return Home();
+    return FutureBuilder(
+      future: Firebase.initializeApp(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting)
+          return _Loading();
+        if (snapshot.hasError) return _Error(snapshot.error!);
+        return Consumer(
+          builder: (context, watch, child) {
+            return watch(authProvider).when(
+              data: (user) {
+                if (user == null)
+                  return Login();
+                else
+                  return Home();
+              },
+              error: (o, s) => _Error(o),
+              loading: () => _Loading(),
+            );
           },
-          error: (o, s) => _Error(o),
-          loading: () => _Loading(),
         );
       },
     );

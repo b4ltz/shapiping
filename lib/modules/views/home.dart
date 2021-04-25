@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shapiping/modules/services/firebase_service.dart';
+import 'package:shapiping/modules/services/auth_service.dart';
 
 class Home extends StatelessWidget {
   static const String id = '/home';

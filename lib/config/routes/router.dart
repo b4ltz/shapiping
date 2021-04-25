@@ -6,9 +6,9 @@ class AppRouter {
   static Route generateRoute(RouteSettings settings) {
     if (settings.name == AppWrapper.id)
       return MaterialPageRoute(builder: (_) => AppWrapper());
-    else if (settings.name == Home.id)
+    if (settings.name == Home.id)
       return MaterialPageRoute(builder: (_) => Home());
-    else if (settings.name == Login.id)
+    if (settings.name == Login.id)
       return MaterialPageRoute(builder: (_) => Login());
     return MaterialPageRoute(builder: (_) => _Default(settings.name!));
   }

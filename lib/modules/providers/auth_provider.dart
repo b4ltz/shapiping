@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shapiping/modules/models/user.dart';
-import 'package:shapiping/modules/services/firebase_service.dart';
+import 'package:shapiping/modules/services/auth_service.dart';
 
 final authProvider = StreamProvider<User?>((ref) {
   final auth = ref.watch(authServiceProvider);
