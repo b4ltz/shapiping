@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shapiping/modules/services/auth_service.dart';
 import 'package:shapiping/utils/helpers/validators.dart';
@@ -129,12 +130,15 @@ class _RegisterTabState extends State<RegisterTab> {
           ),
           SizedBox(height: 10),
           Center(
-            child: GestureDetector(
-              onTap: widget.onLoginClick,
-              child: Text(
-                'Already have an account?',
-                style: TextStyle(
-                  color: Colors.blue,
+            child: MouseRegion(
+              cursor: SystemMouseCursors.click,
+              child: GestureDetector(
+                onTap: widget.onLoginClick,
+                child: Text(
+                  'Already have an account?',
+                  style: TextStyle(
+                    color: Colors.blue,
+                  ),
                 ),
               ),
             ),

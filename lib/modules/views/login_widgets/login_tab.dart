@@ -1,4 +1,8 @@
+// ignore: avoid_web_libraries_in_flutter
+import 'dart:html' show document;
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shapiping/const/app_assets.dart';
 import 'package:shapiping/modules/services/auth_service.dart';
@@ -6,7 +10,7 @@ import 'package:shapiping/modules/services/auth_service.dart';
 class LoginTab extends StatefulWidget {
   final AuthService authService;
 
-  final VoidCallback onRegisterClick;
+  final Function onRegisterClick;
 
   LoginTab(this.authService, this.onRegisterClick, {Key? key})
       : super(key: key);
@@ -40,6 +44,10 @@ class _LoginTabState extends State<LoginTab> {
 
   @override
   Widget build(BuildContext context) {
+    if (kIsWeb) {
+      document.addEventListener('keydown',
+          (event) => {if (event.type == 'tab') event.preventDefault()});
+    }
     return Form(
       key: _formKey,
       child: Column(
@@ -122,43 +130,56 @@ class _LoginTabState extends State<LoginTab> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              GestureDetector(
-                onTap: widget.onRegisterClick,
-                child: Material(
-                  elevation: 1,
-                  color: Colors.teal,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(50)),
-                  child: SizedBox(
-                    height: 40,
-                    width: 40,
-                    child: Icon(
-                      Icons.alternate_email,
-                      color: Colors.white,
+              MouseRegion(
+                cursor: SystemMouseCursors.click,
+                child: GestureDetector(
+                  onTap: () => widget.onRegisterClick(),
+                  child: Material(
+                    elevation: 1,
+                    color: Colors.teal,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50)),
+                    child: SizedBox(
+                      height: 40,
+                      width: 40,
+                      child: Icon(
+                        Icons.alternate_email,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),
               ),
               SizedBox(width: 20),
-              Material(
-                elevation: 1,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50)),
-                child: SizedBox(
-                  height: 40,
-                  width: 40,
-                  child: Image(image: AssetImage(AppAssets.fb)),
+              MouseRegion(
+                cursor: SystemMouseCursors.click,
+                child: GestureDetector(
+                  child: Material(
+                    elevation: 1,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50)),
+                    child: SizedBox(
+                      height: 40,
+                      width: 40,
+                      child: Image(image: AssetImage(AppAssets.fb)),
+                    ),
+                  ),
                 ),
               ),
               SizedBox(width: 20),
-              Material(
-                elevation: 1,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50)),
-                child: SizedBox(
-                  height: 40,
-                  width: 40,
-                  child: Image(image: AssetImage(AppAssets.google)),
+              MouseRegion(
+                cursor: SystemMouseCursors.click,
+                child: GestureDetector(
+                  child: Material(
+                    elevation: 1,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50)),
+                    child: SizedBox(
+                      height: 40,
+                      width: 40,
+                      child: Image(image: AssetImage(AppAssets.google)),
+                    ),
+                  ),
                 ),
               ),
             ],
