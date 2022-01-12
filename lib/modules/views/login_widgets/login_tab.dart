@@ -1,5 +1,5 @@
 // ignore: avoid_web_libraries_in_flutter
-import 'dart:html' show document;
+// import 'dart:html' show document;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -28,12 +28,13 @@ class _LoginTabState extends State<LoginTab> {
 
   final _formKey = GlobalKey<FormState>();
 
-  void _onSignIn(BuildContext context) async {
-    context.read(_isLoading).state = true;
+  void _onSignIn(WidgetRef ref) async {
+    final prov = ref.read(_isLoading.state);
+    prov.state = true;
     final result = await widget.authService.signIn(email.text, pass.text);
 
     if (result.hasError) {
-      context.read(_isLoading).state = false;
+      prov.state = false;
       ScaffoldMessenger.of(context)
         ..hideCurrentSnackBar()
         ..showSnackBar(
@@ -44,10 +45,10 @@ class _LoginTabState extends State<LoginTab> {
 
   @override
   Widget build(BuildContext context) {
-    if (kIsWeb) {
-      document.addEventListener('keydown',
-          (event) => {if (event.type == 'tab') event.preventDefault()});
-    }
+    // if (kIsWeb) {
+    //   document.addEventListener('keydown',
+    //       (event) => {if (event.type == 'tab') event.preventDefault()});
+    // }
     return Form(
       key: _formKey,
       child: Column(
@@ -101,14 +102,14 @@ class _LoginTabState extends State<LoginTab> {
           SizedBox(
             width: double.infinity,
             child: Consumer(
-              builder: (context, watch, child) {
-                final isLoggingIn = watch(_isLoading).state;
+              builder: (context, ref, child) {
+                final isLoggingIn = ref.watch(_isLoading);
 
                 if (isLoggingIn)
                   return Center(child: CircularProgressIndicator());
                 return TextButton(
                   child: Text('Sign In'),
-                  onPressed: () => _onSignIn(context),
+                  onPressed: () => _onSignIn(ref),
                   style: ButtonStyle(
                     foregroundColor: MaterialStateProperty.all(Colors.white),
                     backgroundColor: MaterialStateProperty.all(Colors.blue),

@@ -17,16 +17,16 @@ class AppWrapper extends StatelessWidget {
         if (snapshot.hasError) return _Error(snapshot.error!);
         return Consumer(
           builder: (context, watch, child) {
-            return watch(authProvider).when(
-              data: (user) {
-                if (user == null)
-                  return Login();
-                else
-                  return Home();
-              },
-              error: (o, s) => _Error(o),
-              loading: () => _Loading(),
-            );
+            return watch.watch(authProvider).when(
+                  data: (user) {
+                    if (user == null)
+                      return Login();
+                    else
+                      return Home();
+                  },
+                  error: (o, s) => _Error(o),
+                  loading: () => _Loading(),
+                );
           },
         );
       },

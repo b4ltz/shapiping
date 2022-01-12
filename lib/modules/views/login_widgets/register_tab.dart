@@ -27,15 +27,18 @@ class _RegisterTabState extends State<RegisterTab> {
 
   final formKey = GlobalKey<FormState>();
 
-  void _onRegister(BuildContext context) async {
+  void _onRegister(WidgetRef ref) async {
     final state = formKey.currentState;
     if (state == null) return;
 
     if (!state.validate()) return;
 
-    context.read(_isLoading).state = true;
+    // ref.read(_isLoading) = true;
+
+    final prov = ref.read(_isLoading.state);
+    prov.state = true;
     final result = await widget.authService.register(email.text, pass.text);
-    context.read(_isLoading).state = false;
+    prov.state = false;
     final message =
         result.hasError ? '${result.error}' : 'Registered successfully';
     ScaffoldMessenger.of(context)
@@ -112,14 +115,14 @@ class _RegisterTabState extends State<RegisterTab> {
           SizedBox(
             width: double.infinity,
             child: Consumer(
-              builder: (context, watch, child) {
-                final isLoggingIn = watch(_isLoading).state;
+              builder: (context, ref, child) {
+                final isLoggingIn = ref.watch(_isLoading);
 
                 if (isLoggingIn)
                   return Center(child: CircularProgressIndicator());
                 return TextButton(
                   child: Text('Register'),
-                  onPressed: () => _onRegister(context),
+                  onPressed: () => _onRegister(ref),
                   style: ButtonStyle(
                     foregroundColor: MaterialStateProperty.all(Colors.white),
                     backgroundColor: MaterialStateProperty.all(Colors.orange),
