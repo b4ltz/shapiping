@@ -1,22 +1,18 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:shapiping/modules/services/auth_service.dart';
-import 'package:shapiping/utils/helpers/validators.dart';
+part of '../login_screen.dart';
 
-class RegisterTab extends StatefulWidget {
+class _RegisterTab extends StatefulWidget {
   final AuthService authService;
 
   final VoidCallback onLoginClick;
 
-  RegisterTab(this.authService, this.onLoginClick, {Key? key})
+  _RegisterTab(this.authService, this.onLoginClick, {Key? key})
       : super(key: key);
 
   @override
-  _RegisterTabState createState() => _RegisterTabState();
+  __RegisterTabState createState() => __RegisterTabState();
 }
 
-class _RegisterTabState extends State<RegisterTab> {
+class __RegisterTabState extends State<_RegisterTab> {
   final _isLoading = StateProvider((ref) => false);
 
   final email = TextEditingController(text: '');

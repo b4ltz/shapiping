@@ -1,25 +1,19 @@
-// ignore: avoid_web_libraries_in_flutter
-// import 'dart:html' show document;
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:shapiping/const/app_assets.dart';
-import 'package:shapiping/modules/services/auth_service.dart';
+part of '../login_screen.dart';
 
-class LoginTab extends StatefulWidget {
+class _LoginTab extends StatefulWidget {
   final AuthService authService;
-
+  final TabController tabController;
   final Function onRegisterClick;
 
-  LoginTab(this.authService, this.onRegisterClick, {Key? key})
+  _LoginTab(this.authService, this.tabController, this.onRegisterClick,
+      {Key? key})
       : super(key: key);
 
   @override
-  _LoginTabState createState() => _LoginTabState();
+  __LoginTabState createState() => __LoginTabState();
 }
 
-class _LoginTabState extends State<LoginTab> {
+class __LoginTabState extends State<_LoginTab> {
   final _isLoading = StateProvider((ref) => false);
 
   final email = TextEditingController(text: '');
@@ -29,6 +23,8 @@ class _LoginTabState extends State<LoginTab> {
   final _formKey = GlobalKey<FormState>();
 
   void _onSignIn(WidgetRef ref) async {
+    if (!_formKey.currentState!.validate()) return;
+
     final prov = ref.read(_isLoading.state);
     prov.state = true;
     final result = await widget.authService.signIn(email.text, pass.text);
@@ -68,7 +64,7 @@ class _LoginTabState extends State<LoginTab> {
             ),
           ),
           TextFormField(
-            // TODO: Vadlidation
+            validator: Validators.email,
             controller: email,
             decoration: InputDecoration(
               prefixIcon: Icon(Icons.email_rounded),
@@ -81,7 +77,7 @@ class _LoginTabState extends State<LoginTab> {
           SizedBox(height: 10),
           SizedBox(width: double.infinity),
           TextFormField(
-            // TODO: Vadlidation
+            validator: Validators.password,
             controller: pass,
             decoration: InputDecoration(
               prefixIcon: Icon(Icons.lock),
@@ -92,10 +88,16 @@ class _LoginTabState extends State<LoginTab> {
             obscureText: true,
           ),
           SizedBox(height: 20),
-          Text(
-            'Forgot Password?',
-            style: TextStyle(
-              color: Colors.grey,
+          GestureDetector(
+            onTap: () {
+              widget.tabController.animateTo(2);
+              // Navigator.of(context).pushNamed(ForgotPassword.id);
+            },
+            child: Text(
+              'Forgot Password?',
+              style: TextStyle(
+                color: Colors.grey,
+              ),
             ),
           ),
           SizedBox(height: 5),

@@ -16,8 +16,8 @@ class AppWrapper extends StatelessWidget {
           return _Loading();
         if (snapshot.hasError) return _Error(snapshot.error!);
         return Consumer(
-          builder: (context, watch, child) {
-            return watch.watch(authProvider).when(
+          builder: (context, ref, child) {
+            return ref.watch(authProvider).when(
                   data: (user) {
                     if (user == null)
                       return Login();

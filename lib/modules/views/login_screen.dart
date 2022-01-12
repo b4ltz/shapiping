@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:shapiping/const/app_assets.dart';
+import 'package:shapiping/modules/models/api_result/api_response.dart';
 import 'package:shapiping/modules/services/auth_service.dart';
-import 'package:shapiping/modules/views/login_widgets/login_tab.dart';
-import 'package:shapiping/modules/views/login_widgets/register_tab.dart';
+import 'package:shapiping/utils/helpers/validators.dart';
+
+part 'login_widgets/login_banner.dart';
+part 'login_widgets/login_tab.dart';
+part 'login_widgets/register_tab.dart';
+part 'login_widgets/forgot_password_tab.dart';
 
 class Login extends StatefulWidget {
   static const String id = '/auth/login';
@@ -15,11 +22,7 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
   final authService = AuthService();
 
-  final keyboardEvent = KeyboardVisibilityController();
-
   late final TabController tabController;
-
-  bool isKbVisible = false;
 
   void onChangeTab(int tabIndex) {
     tabController.animateTo(tabIndex);
@@ -27,12 +30,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
 
   @override
   void initState() {
-    tabController = TabController(length: 2, vsync: this);
-    keyboardEvent.onChange.listen((event) {
-      setState(() {
-        isKbVisible = event;
-      });
-    });
+    tabController = TabController(length: 3, vsync: this);
     super.initState();
   }
 
@@ -49,73 +47,29 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
       child: Scaffold(
         body: Stack(
           children: [
-            if (!isKbVisible) ...[
-              CustomPaint(
-                size: Size(MediaQuery.of(context).size.width,
-                    MediaQuery.of(context).size.height * 0.15),
-                painter: _CustomPainer(Colors.teal),
-              ),
-              SafeArea(
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 15),
-                  child: Center(
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Shapiping',
-                              style: TextStyle(
-                                fontSize: 50,
-                                fontWeight: FontWeight.w500,
-                                fontFamily: 'Poppins',
-                                color: Colors.white,
-                              ),
-                            ),
-                            Icon(
-                              Icons.shopping_cart,
-                              size: 50,
-                              color: Colors.white,
-                            ),
-                          ],
-                        ),
-                        Text(
-                          'Your online basurahan shope',
-                          style: const TextStyle(color: Colors.white),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                bottom: 0,
-                child: Container(
-                  color: Colors.teal,
-                  width: MediaQuery.of(context).size.width,
-                  child: Center(
-                      child: Text(
-                    'v1.0.0',
-                    style: TextStyle(color: Colors.white),
-                  )),
-                ),
-              ),
-            ],
+            _LoginBanner(),
             TabBarView(
               controller: tabController,
               physics: const NeverScrollableScrollPhysics(),
               children: [
                 Padding(
                   padding: const EdgeInsets.all(20),
-                  child: LoginTab(
+                  child: _LoginTab(
                     authService,
+                    tabController,
                     () => onChangeTab(1),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(20),
-                  child: RegisterTab(authService, () => onChangeTab(0)),
+                  child: _RegisterTab(
+                    authService,
+                    () => onChangeTab(0),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: _ForgotPassword(authService, tabController),
                 ),
               ],
             ),
@@ -124,28 +78,4 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
       ),
     );
   }
-}
-
-class _CustomPainer extends CustomPainter {
-  final Color color;
-
-  _CustomPainer(this.color);
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final h = size.height, w = size.width;
-    final paint = Paint()
-      ..color = color
-      ..strokeWidth = 15;
-    final path = Path()
-      ..lineTo(0, h)
-      ..quadraticBezierTo(w * 0.5, h + (h * 0.5), w, h)
-      ..lineTo(w, h)
-      ..lineTo(w, 0);
-
-    canvas.drawPath(path, paint);
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }

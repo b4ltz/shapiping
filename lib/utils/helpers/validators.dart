@@ -11,7 +11,7 @@ abstract class Validators {
   static String? password(String? pass) {
     if (pass == null) return null;
     if (pass.trim().isEmpty) return 'This field is required';
-    if (pass.length < 8) return 'Password must be greater than 8 characters';
+    if (pass.length < 6) return 'Password must be greater than 8 characters';
     return null;
   }
 }
