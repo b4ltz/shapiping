@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -60,8 +63,8 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                     () => onChangeTab(1),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(20),
+                Container(
+                  // padding: const EdgeInsets.all(20),
                   child: _RegisterTab(
                     authService,
                     () => onChangeTab(0),

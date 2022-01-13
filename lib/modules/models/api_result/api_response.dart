@@ -12,4 +12,5 @@ class ApiResponse with _$ApiResponse {
   const factory ApiResponse.firebaseError(FirebaseException error) =
       ApiResponseFirebaseError;
   const factory ApiResponse.clientError(dynamic error) = ApiResponseClientError;
+  const factory ApiResponse.fail([String? message]) = ApiResponseFail;
 }

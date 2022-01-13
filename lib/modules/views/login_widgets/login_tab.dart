@@ -27,7 +27,8 @@ class __LoginTabState extends State<_LoginTab> {
 
     final prov = ref.read(_isLoading.state);
     prov.state = true;
-    final result = await widget.authService.signIn(email.text, pass.text);
+    final result =
+        await widget.authService.signInWithEmail(email.text, pass.text);
 
     if (result.hasError) {
       prov.state = false;
@@ -88,17 +89,34 @@ class __LoginTabState extends State<_LoginTab> {
             obscureText: true,
           ),
           SizedBox(height: 20),
-          GestureDetector(
-            onTap: () {
-              widget.tabController.animateTo(2);
-              // Navigator.of(context).pushNamed(ForgotPassword.id);
-            },
-            child: Text(
-              'Forgot Password?',
-              style: TextStyle(
-                color: Colors.grey,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  widget.tabController.animateTo(2);
+                  // Navigator.of(context).pushNamed(ForgotPassword.id);
+                },
+                child: Text(
+                  'Forgot Password?',
+                  style: TextStyle(
+                    color: Colors.grey,
+                  ),
+                ),
               ),
-            ),
+              GestureDetector(
+                onTap: () {
+                  widget.tabController.animateTo(1);
+                  // Navigator.of(context).pushNamed(ForgotPassword.id);
+                },
+                child: Text(
+                  'New user? Register here >',
+                  style: TextStyle(
+                    color: Colors.grey,
+                  ),
+                ),
+              ),
+            ],
           ),
           SizedBox(height: 5),
           SizedBox(
@@ -123,7 +141,7 @@ class __LoginTabState extends State<_LoginTab> {
           SizedBox(height: 10),
           Center(
             child: Text(
-              'New user? Register via:',
+              'Login via:',
               style: TextStyle(
                 color: Colors.grey,
               ),
@@ -133,30 +151,49 @@ class __LoginTabState extends State<_LoginTab> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              // MouseRegion(
+              //   cursor: SystemMouseCursors.click,
+              //   child: GestureDetector(
+              //     onTap: () => widget.onRegisterClick(),
+              //     child: Material(
+              //       elevation: 1,
+              //       color: Colors.teal,
+              //       shape: RoundedRectangleBorder(
+              //           borderRadius: BorderRadius.circular(50)),
+              //       child: SizedBox(
+              //         height: 40,
+              //         width: 40,
+              //         child: Icon(
+              //           Icons.alternate_email,
+              //           color: Colors.white,
+              //         ),
+              //       ),
+              //     ),
+              //   ),
+              // ),
+              // SizedBox(width: 20),
               MouseRegion(
                 cursor: SystemMouseCursors.click,
                 child: GestureDetector(
-                  onTap: () => widget.onRegisterClick(),
-                  child: Material(
-                    elevation: 1,
-                    color: Colors.teal,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(50)),
-                    child: SizedBox(
-                      height: 40,
-                      width: 40,
-                      child: Icon(
-                        Icons.alternate_email,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(width: 20),
-              MouseRegion(
-                cursor: SystemMouseCursors.click,
-                child: GestureDetector(
+                  onTap: () async {
+                    if (kIsWeb) {
+                      // TODO:
+                    } else if (Platform.isAndroid) {
+                      print('here');
+                      final res = await widget.authService.signInWithFb();
+                      if (res is! ApiResponseSuccess) {
+                        ScaffoldMessenger.of(context)
+                          ..hideCurrentSnackBar()
+                          ..showSnackBar(
+                            SnackBar(
+                              content: res is ApiResponseFail
+                                  ? Text('${res.message}')
+                                  : Text('${res.toString()}'),
+                            ),
+                          );
+                      }
+                    }
+                  },
                   child: Material(
                     elevation: 1,
                     shape: RoundedRectangleBorder(
@@ -173,6 +210,25 @@ class __LoginTabState extends State<_LoginTab> {
               MouseRegion(
                 cursor: SystemMouseCursors.click,
                 child: GestureDetector(
+                  onTap: () async {
+                    if (kIsWeb) {
+                      // TODO:
+                    } else if (Platform.isAndroid) {
+                      print('here');
+                      final res = await widget.authService.signInWithGoogle();
+                      if (res is! ApiResponseSuccess) {
+                        ScaffoldMessenger.of(context)
+                          ..hideCurrentSnackBar()
+                          ..showSnackBar(
+                            SnackBar(
+                              content: res is ApiResponseFail
+                                  ? Text('${res.message}')
+                                  : Text('${res.toString()}'),
+                            ),
+                          );
+                      }
+                    }
+                  },
                   child: Material(
                     elevation: 1,
                     shape: RoundedRectangleBorder(

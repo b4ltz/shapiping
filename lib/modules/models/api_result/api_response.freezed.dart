@@ -35,6 +35,12 @@ class _$ApiResponseTearOff {
       error,
     );
   }
+
+  ApiResponseFail fail([String? message]) {
+    return ApiResponseFail(
+      message,
+    );
+  }
 }
 
 /// @nodoc
@@ -47,6 +53,7 @@ mixin _$ApiResponse {
     required TResult Function(String? message) success,
     required TResult Function(FirebaseException error) firebaseError,
     required TResult Function(dynamic error) clientError,
+    required TResult Function(String? message) fail,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -54,6 +61,7 @@ mixin _$ApiResponse {
     TResult Function(String? message)? success,
     TResult Function(FirebaseException error)? firebaseError,
     TResult Function(dynamic error)? clientError,
+    TResult Function(String? message)? fail,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -61,6 +69,7 @@ mixin _$ApiResponse {
     TResult Function(String? message)? success,
     TResult Function(FirebaseException error)? firebaseError,
     TResult Function(dynamic error)? clientError,
+    TResult Function(String? message)? fail,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -69,6 +78,7 @@ mixin _$ApiResponse {
     required TResult Function(ApiResponseSuccess value) success,
     required TResult Function(ApiResponseFirebaseError value) firebaseError,
     required TResult Function(ApiResponseClientError value) clientError,
+    required TResult Function(ApiResponseFail value) fail,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -76,6 +86,7 @@ mixin _$ApiResponse {
     TResult Function(ApiResponseSuccess value)? success,
     TResult Function(ApiResponseFirebaseError value)? firebaseError,
     TResult Function(ApiResponseClientError value)? clientError,
+    TResult Function(ApiResponseFail value)? fail,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -83,6 +94,7 @@ mixin _$ApiResponse {
     TResult Function(ApiResponseSuccess value)? success,
     TResult Function(ApiResponseFirebaseError value)? firebaseError,
     TResult Function(ApiResponseClientError value)? clientError,
+    TResult Function(ApiResponseFail value)? fail,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -181,6 +193,7 @@ class _$ApiResponseSuccess extends ApiResponseSuccess
     required TResult Function(String? message) success,
     required TResult Function(FirebaseException error) firebaseError,
     required TResult Function(dynamic error) clientError,
+    required TResult Function(String? message) fail,
   }) {
     return success(message);
   }
@@ -191,6 +204,7 @@ class _$ApiResponseSuccess extends ApiResponseSuccess
     TResult Function(String? message)? success,
     TResult Function(FirebaseException error)? firebaseError,
     TResult Function(dynamic error)? clientError,
+    TResult Function(String? message)? fail,
   }) {
     return success?.call(message);
   }
@@ -201,6 +215,7 @@ class _$ApiResponseSuccess extends ApiResponseSuccess
     TResult Function(String? message)? success,
     TResult Function(FirebaseException error)? firebaseError,
     TResult Function(dynamic error)? clientError,
+    TResult Function(String? message)? fail,
     required TResult orElse(),
   }) {
     if (success != null) {
@@ -215,6 +230,7 @@ class _$ApiResponseSuccess extends ApiResponseSuccess
     required TResult Function(ApiResponseSuccess value) success,
     required TResult Function(ApiResponseFirebaseError value) firebaseError,
     required TResult Function(ApiResponseClientError value) clientError,
+    required TResult Function(ApiResponseFail value) fail,
   }) {
     return success(this);
   }
@@ -225,6 +241,7 @@ class _$ApiResponseSuccess extends ApiResponseSuccess
     TResult Function(ApiResponseSuccess value)? success,
     TResult Function(ApiResponseFirebaseError value)? firebaseError,
     TResult Function(ApiResponseClientError value)? clientError,
+    TResult Function(ApiResponseFail value)? fail,
   }) {
     return success?.call(this);
   }
@@ -235,6 +252,7 @@ class _$ApiResponseSuccess extends ApiResponseSuccess
     TResult Function(ApiResponseSuccess value)? success,
     TResult Function(ApiResponseFirebaseError value)? firebaseError,
     TResult Function(ApiResponseClientError value)? clientError,
+    TResult Function(ApiResponseFail value)? fail,
     required TResult orElse(),
   }) {
     if (success != null) {
@@ -333,6 +351,7 @@ class _$ApiResponseFirebaseError extends ApiResponseFirebaseError
     required TResult Function(String? message) success,
     required TResult Function(FirebaseException error) firebaseError,
     required TResult Function(dynamic error) clientError,
+    required TResult Function(String? message) fail,
   }) {
     return firebaseError(error);
   }
@@ -343,6 +362,7 @@ class _$ApiResponseFirebaseError extends ApiResponseFirebaseError
     TResult Function(String? message)? success,
     TResult Function(FirebaseException error)? firebaseError,
     TResult Function(dynamic error)? clientError,
+    TResult Function(String? message)? fail,
   }) {
     return firebaseError?.call(error);
   }
@@ -353,6 +373,7 @@ class _$ApiResponseFirebaseError extends ApiResponseFirebaseError
     TResult Function(String? message)? success,
     TResult Function(FirebaseException error)? firebaseError,
     TResult Function(dynamic error)? clientError,
+    TResult Function(String? message)? fail,
     required TResult orElse(),
   }) {
     if (firebaseError != null) {
@@ -367,6 +388,7 @@ class _$ApiResponseFirebaseError extends ApiResponseFirebaseError
     required TResult Function(ApiResponseSuccess value) success,
     required TResult Function(ApiResponseFirebaseError value) firebaseError,
     required TResult Function(ApiResponseClientError value) clientError,
+    required TResult Function(ApiResponseFail value) fail,
   }) {
     return firebaseError(this);
   }
@@ -377,6 +399,7 @@ class _$ApiResponseFirebaseError extends ApiResponseFirebaseError
     TResult Function(ApiResponseSuccess value)? success,
     TResult Function(ApiResponseFirebaseError value)? firebaseError,
     TResult Function(ApiResponseClientError value)? clientError,
+    TResult Function(ApiResponseFail value)? fail,
   }) {
     return firebaseError?.call(this);
   }
@@ -387,6 +410,7 @@ class _$ApiResponseFirebaseError extends ApiResponseFirebaseError
     TResult Function(ApiResponseSuccess value)? success,
     TResult Function(ApiResponseFirebaseError value)? firebaseError,
     TResult Function(ApiResponseClientError value)? clientError,
+    TResult Function(ApiResponseFail value)? fail,
     required TResult orElse(),
   }) {
     if (firebaseError != null) {
@@ -485,6 +509,7 @@ class _$ApiResponseClientError extends ApiResponseClientError
     required TResult Function(String? message) success,
     required TResult Function(FirebaseException error) firebaseError,
     required TResult Function(dynamic error) clientError,
+    required TResult Function(String? message) fail,
   }) {
     return clientError(error);
   }
@@ -495,6 +520,7 @@ class _$ApiResponseClientError extends ApiResponseClientError
     TResult Function(String? message)? success,
     TResult Function(FirebaseException error)? firebaseError,
     TResult Function(dynamic error)? clientError,
+    TResult Function(String? message)? fail,
   }) {
     return clientError?.call(error);
   }
@@ -505,6 +531,7 @@ class _$ApiResponseClientError extends ApiResponseClientError
     TResult Function(String? message)? success,
     TResult Function(FirebaseException error)? firebaseError,
     TResult Function(dynamic error)? clientError,
+    TResult Function(String? message)? fail,
     required TResult orElse(),
   }) {
     if (clientError != null) {
@@ -519,6 +546,7 @@ class _$ApiResponseClientError extends ApiResponseClientError
     required TResult Function(ApiResponseSuccess value) success,
     required TResult Function(ApiResponseFirebaseError value) firebaseError,
     required TResult Function(ApiResponseClientError value) clientError,
+    required TResult Function(ApiResponseFail value) fail,
   }) {
     return clientError(this);
   }
@@ -529,6 +557,7 @@ class _$ApiResponseClientError extends ApiResponseClientError
     TResult Function(ApiResponseSuccess value)? success,
     TResult Function(ApiResponseFirebaseError value)? firebaseError,
     TResult Function(ApiResponseClientError value)? clientError,
+    TResult Function(ApiResponseFail value)? fail,
   }) {
     return clientError?.call(this);
   }
@@ -539,6 +568,7 @@ class _$ApiResponseClientError extends ApiResponseClientError
     TResult Function(ApiResponseSuccess value)? success,
     TResult Function(ApiResponseFirebaseError value)? firebaseError,
     TResult Function(ApiResponseClientError value)? clientError,
+    TResult Function(ApiResponseFail value)? fail,
     required TResult orElse(),
   }) {
     if (clientError != null) {
@@ -556,5 +586,160 @@ abstract class ApiResponseClientError extends ApiResponse {
   dynamic get error;
   @JsonKey(ignore: true)
   $ApiResponseClientErrorCopyWith<ApiResponseClientError> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ApiResponseFailCopyWith<$Res> {
+  factory $ApiResponseFailCopyWith(
+          ApiResponseFail value, $Res Function(ApiResponseFail) then) =
+      _$ApiResponseFailCopyWithImpl<$Res>;
+  $Res call({String? message});
+}
+
+/// @nodoc
+class _$ApiResponseFailCopyWithImpl<$Res>
+    extends _$ApiResponseCopyWithImpl<$Res>
+    implements $ApiResponseFailCopyWith<$Res> {
+  _$ApiResponseFailCopyWithImpl(
+      ApiResponseFail _value, $Res Function(ApiResponseFail) _then)
+      : super(_value, (v) => _then(v as ApiResponseFail));
+
+  @override
+  ApiResponseFail get _value => super._value as ApiResponseFail;
+
+  @override
+  $Res call({
+    Object? message = freezed,
+  }) {
+    return _then(ApiResponseFail(
+      message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$ApiResponseFail extends ApiResponseFail with DiagnosticableTreeMixin {
+  const _$ApiResponseFail([this.message]) : super._();
+
+  @override
+  final String? message;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'ApiResponse.fail(message: $message)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'ApiResponse.fail'))
+      ..add(DiagnosticsProperty('message', message));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is ApiResponseFail &&
+            const DeepCollectionEquality().equals(other.message, message));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(message));
+
+  @JsonKey(ignore: true)
+  @override
+  $ApiResponseFailCopyWith<ApiResponseFail> get copyWith =>
+      _$ApiResponseFailCopyWithImpl<ApiResponseFail>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String? message) success,
+    required TResult Function(FirebaseException error) firebaseError,
+    required TResult Function(dynamic error) clientError,
+    required TResult Function(String? message) fail,
+  }) {
+    return fail(message);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(String? message)? success,
+    TResult Function(FirebaseException error)? firebaseError,
+    TResult Function(dynamic error)? clientError,
+    TResult Function(String? message)? fail,
+  }) {
+    return fail?.call(message);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String? message)? success,
+    TResult Function(FirebaseException error)? firebaseError,
+    TResult Function(dynamic error)? clientError,
+    TResult Function(String? message)? fail,
+    required TResult orElse(),
+  }) {
+    if (fail != null) {
+      return fail(message);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ApiResponseSuccess value) success,
+    required TResult Function(ApiResponseFirebaseError value) firebaseError,
+    required TResult Function(ApiResponseClientError value) clientError,
+    required TResult Function(ApiResponseFail value) fail,
+  }) {
+    return fail(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(ApiResponseSuccess value)? success,
+    TResult Function(ApiResponseFirebaseError value)? firebaseError,
+    TResult Function(ApiResponseClientError value)? clientError,
+    TResult Function(ApiResponseFail value)? fail,
+  }) {
+    return fail?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ApiResponseSuccess value)? success,
+    TResult Function(ApiResponseFirebaseError value)? firebaseError,
+    TResult Function(ApiResponseClientError value)? clientError,
+    TResult Function(ApiResponseFail value)? fail,
+    required TResult orElse(),
+  }) {
+    if (fail != null) {
+      return fail(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ApiResponseFail extends ApiResponse {
+  const factory ApiResponseFail([String? message]) = _$ApiResponseFail;
+  const ApiResponseFail._() : super._();
+
+  String? get message;
+  @JsonKey(ignore: true)
+  $ApiResponseFailCopyWith<ApiResponseFail> get copyWith =>
       throw _privateConstructorUsedError;
 }
